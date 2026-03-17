@@ -3,84 +3,673 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set and Forget System For Solopreneur</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Solopreneur Marketing System - Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        accent: '#2563eb',
+                        success: '#16a34a',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#0ea5e9'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-selected {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+        .checkmark {
+            display: none;
+        }
+        .card-selected .checkmark {
+            display: block;
+        }
+        .card-selected .unselected-circle {
+            display: none;
+        }
+        
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .map-node-active {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #2563eb;
+            animation: pulse-border 2s infinite;
+        }
+        .map-node-manual {
+            border-color: #ef4444;
+            border-style: dashed;
+            background-color: #fef2f2;
+            color: #ef4444;
+        }
+        
+        .goal-btn-active {
+            border-color: #2563eb !important;
+            background-color: #eff6ff !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+    </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logo">Set & Forget</h1>
-            <p class="tagline">Automate Your Business Operations</p>
+<!-- Increased padding bottom to massive 26rem to ensure no footer overlap issues on mobile -->
+<body class="bg-gray-50 text-gray-800 font-sans antialiased pb-[26rem] md:pb-[20rem]">
+
+    <!-- Header -->
+    <header class="bg-primary text-white py-10 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-3">Solopreneur Marketing System: 3-Person Edition</h1>
+            <p class="text-lg text-gray-300">Your "Set it and Forget it" Digital Storefront. Max tracking, built for your peace of mind.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="text-xs text-gray-400 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
+                    <i class="fas fa-server mr-1"></i> Hosted on Free Tiers = $0 Monthly Tech Cost
+                </span>
+                <span class="text-xs text-green-400 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
+                    <i class="fas fa-shield-check mr-1"></i> Includes 6 Months Bug Support
+                </span>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="container">
-        <section class="hero">
-            <h2>Build Your Automated Business System</h2>
-            <p>Save time, reduce manual work, and focus on growing your business</p>
-            <button class="cta-btn">Get Started</button>
-        </section>
+    <main class="max-w-6xl mx-auto px-6 py-8">
 
-        <section class="features">
-            <h2>Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>⚙️ Easy Setup</h3>
-                    <p>Configure your workflows in minutes, not hours</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔄 Automation</h3>
-                    <p>Automate repetitive tasks and save hours every week</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Analytics</h3>
-                    <p>Track performance and optimize your processes</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔗 Integration</h3>
-                    <p>Connect with your favorite tools and platforms</p>
-                </div>
+        <!-- Phase 0: System Consultant -->
+        <div class="mb-10 bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Phase 0</span>
+                <h2 class="text-2xl font-bold text-gray-900">System Consultant</h2>
             </div>
-        </section>
+            <p class="text-gray-600 mb-6">Select your agency's current operational goal below. We will automatically pre-select the exact modules you need to achieve it without overspending. You can manually adjust the cards afterward.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                
+                <button onclick="applyGoal('warm')" id="btn-goal-warm" class="goal-btn text-left border-2 border-gray-200 hover:border-blue-300 rounded-xl p-5 transition-all duration-200">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-3">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1 text-lg">"Digitize My Warm Market"</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">I have 0 ad volume right now. I just need to get my current leads off paper, automate my dialing, and gently auto-nurture my prospects.</p>
+                </button>
 
-        <section class="pricing">
-            <h2>Pricing</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>Starter</h3>
-                    <p class="price">$29<span>/mo</span></p>
-                    <ul>
-                        <li>Up to 5 workflows</li>
-                        <li>Basic support</li>
-                        <li>1,000 actions/month</li>
-                    </ul>
-                </div>
-                <div class="pricing-card featured">
-                    <h3>Professional</h3>
-                    <p class="price">$79<span>/mo</span></p>
-                    <ul>
-                        <li>Unlimited workflows</li>
-                        <li>Priority support</li>
-                        <li>100,000 actions/month</li>
-                    </ul>
-                </div>
-                <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <p class="price">Custom</p>
-                    <ul>
-                        <li>Everything in Pro</li>
-                        <li>Dedicated support</li>
-                        <li>Unlimited actions</li>
-                    </ul>
-                </div>
+                <button onclick="applyGoal('ads')" id="btn-goal-ads" class="goal-btn text-left border-2 border-gray-200 hover:border-blue-300 rounded-xl p-5 transition-all duration-200">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-3">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1 text-lg">"I'm Ready for Paid Ads"</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">I am buying Meta/Google traffic. I need inbound API syncing and immediate &lt;60s SMS triggers to make sure no lead slips through the cracks.</p>
+                </button>
+
+                <button onclick="applyGoal('scale')" id="btn-goal-scale" class="goal-btn text-left border-2 border-gray-200 hover:border-blue-300 rounded-xl p-5 transition-all duration-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[9px] font-black px-3 py-1 rounded-bl-lg uppercase">10% Off</div>
+                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-3">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1 text-lg">"Full Omnichannel Scale"</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">I want the complete suite: AI Voice, Outbound extensions, Zenith social posting, and ad syncing. Built to be my 24/7 digital assistant.</p>
+                </button>
+
             </div>
-        </section>
+        </div>
+        
+        <!-- Interactive System Map -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-2">How Your Selected Funnel Flows</h2>
+            <p class="text-gray-600 mb-6 text-sm">Select features below to see how they automate your insurance team's phases. <span class="text-danger font-semibold">Red dashed lines indicate areas where your team will use your traditional notebook method.</span></p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200 w-full overflow-hidden relative">
+                
+                <div class="flex flex-col items-center text-center w-40 z-10">
+                    <div id="map-capture" class="w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300">
+                        <i class="fas fa-magnet"></i>
+                    </div>
+                    <p class="font-bold text-sm text-gray-900">1. Attraction & Capture</p>
+                    <p id="map-capture-text" class="text-xs mt-1 font-medium px-2"></p>
+                </div>
+
+                <div class="text-gray-300 text-2xl hidden md:block z-0"><i class="fas fa-arrow-right"></i></div>
+                <div class="text-gray-300 text-2xl md:hidden my-3 z-0"><i class="fas fa-arrow-down"></i></div>
+
+                <div class="flex flex-col items-center text-center w-40 z-10">
+                    <div id="map-reception" class="w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <p class="font-bold text-sm text-gray-900">2. External Data Sync</p>
+                    <p id="map-reception-text" class="text-xs mt-1 font-medium px-2"></p>
+                </div>
+
+                <div class="text-gray-300 text-2xl hidden md:block z-0"><i class="fas fa-arrow-right"></i></div>
+                <div class="text-gray-300 text-2xl md:hidden my-3 z-0"><i class="fas fa-arrow-down"></i></div>
+
+                <div class="flex flex-col items-center text-center w-40 z-10 relative">
+                    <div class="absolute -top-3 -right-3 bg-success text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm"><i class="fas fa-lock"></i> Base System</div>
+                    <div id="map-core" class="w-20 h-20 rounded-xl flex items-center justify-center text-3xl mb-3 border-2 border-success bg-green-50 text-success shadow-inner">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <p class="font-bold text-sm text-gray-900">3. TaskHub Pipeline</p>
+                    <p class="text-[10px] mt-1 font-bold text-success uppercase tracking-wide">3-Agent Dashboard</p>
+                </div>
+
+                <div class="text-gray-300 text-2xl hidden md:block z-0"><i class="fas fa-arrow-right"></i></div>
+                <div class="text-gray-300 text-2xl md:hidden my-3 z-0"><i class="fas fa-arrow-down"></i></div>
+
+                <div class="flex flex-col items-center text-center w-40 z-10">
+                    <div id="map-nurture" class="w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300">
+                        <i class="fas fa-share-nodes"></i>
+                    </div>
+                    <p class="font-bold text-sm text-gray-900">4. Outbound Marketing</p>
+                    <p id="map-nurture-text" class="text-xs mt-1 font-medium px-2"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dynamic Categories Container -->
+        <div id="categories-container" class="space-y-12 mt-8">
+            <!-- Injected by JS -->
+        </div>
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 Set and Forget System. All rights reserved.</p>
+    <!-- Sticky Footer -->
+    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-[0_-15px_25px_-5px_rgba(0,0,0,0.1)] z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            
+            <!-- NEW TRUST & TRANSPARENCY BANNER (Positive Framing) -->
+            <div class="w-full bg-blue-50 border border-blue-200 text-blue-900 text-[10px] md:text-xs px-4 py-2.5 rounded-lg mb-4 font-medium flex items-start gap-3 shadow-sm">
+                <i class="fas fa-handshake text-blue-600 text-lg mt-0.5"></i>
+                <div class="flex-1">
+                    <p class="mb-1"><strong>OUR ZERO-SURPRISE PROMISE:</strong> The development costs below are a <strong>one-time build fee</strong>. We include <strong>6 months of free bug support</strong> for your peace of mind. No hidden agency retainers.</p>
+                    <p class="text-blue-700"><em>Asset Ownership Advantage:</em> To save you money, you own your external accounts. You pay directly for your own Ad Spend (Meta/Google) and Wholesale Telecom Usage (Twilio minutes/texts, SendGrid emails) with zero markup from us.</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex-1 w-full flex flex-wrap justify-between md:justify-start md:gap-8 items-center">
+                    
+                    <div>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">One-Time System Build</p>
+                        <div class="flex items-center gap-2">
+                            <p id="subtotal-display" class="text-sm font-bold text-gray-400 line-through hidden">$<span>0</span></p>
+                            <p class="text-2xl font-black text-success leading-none">$<span id="total-cost">0</span></p>
+                        </div>
+                        <p id="discount-badge" class="text-[10px] bg-green-100 text-green-800 px-1.5 py-0.5 rounded font-bold mt-1 hidden"><i class="fas fa-tag"></i> 10% Volume Discount Applied</p>
+                    </div>
+
+                    <div class="hidden md:block border-l border-gray-200 pl-6">
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Add-On Dev Effort</p>
+                        <p class="text-lg font-bold text-gray-900 leading-none"><span id="total-hours">0</span> <span class="text-sm font-normal text-gray-500">hrs*</span></p>
+                    </div>
+
+                    <div class="bg-indigo-50 px-4 py-2 rounded-lg border border-indigo-100 shadow-inner">
+                        <p class="text-[10px] text-indigo-600 font-bold uppercase tracking-wider mb-1">Estimated Delivery</p>
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-2xl font-black text-indigo-700 leading-none"><span id="calendar-days">0</span> <span class="text-sm font-bold text-indigo-600">Days</span></p>
+                            <span class="text-[10px] bg-indigo-200 text-indigo-800 px-1.5 py-0.5 rounded font-bold whitespace-nowrap"><i class="fas fa-bolt"></i> 2 Devs on Task</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <button onclick="sendToWhatsApp()" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2 text-lg whitespace-nowrap">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    Send Setup Plan
+                </button>
+            </div>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- JavaScript Logic -->
+    <script>
+        const HOURLY_RATE = 8;
+        const BASE_SETUP_DAYS = 5; 
+        
+        const categories = [
+            { id: 'triage', title: 'Phase 1: TaskHub Pipeline (The Core Base System)', desc: 'The flat-fee standalone dashboard. Replaces your notebook and acts as your team\'s digital home base.', color: 'text-gray-900' },
+            { id: 'capture', title: 'Phase 2: Inbound Ad & Platform Sync (Speed-to-Lead)', desc: 'Connect your paid ads directly to the CRM. (Note: Your ad spend is billed directly to you by Meta/Google).', color: 'text-blue-700' },
+            { id: 'outbound', title: 'Phase 3: Automated Outbound (Browser Extensions)', desc: 'Tools that gently find prospects and sync data into TaskHub while you focus on closing.', color: 'text-teal-700' },
+            { id: 'twilio', title: 'Phase 4: Telecom Infrastructure & AI Voice', desc: 'Secure call handling and essential compliance setup to protect your business. (Note: Twilio call/SMS minutes are billed at wholesale to you directly).', color: 'text-indigo-700' },
+            { id: 'marketing', title: 'Phase 5: Social Media Autopilot (Zenith)', desc: 'Automates outbound marketing to keep your brand visible and professional with minimal effort.', color: 'text-purple-700' }
+        ];
+
+        const features = [
+            // BASE SYSTEM
+            { 
+                id: 'foundation', cat: 'triage', title: 'TaskHub Digital Triage (Web Dashboard Only)', 
+                description: 'Standalone web application to safely systemize your team. (NOTE: Does NOT include external APIs out of the box).', 
+                deliverables: [
+                    'Standalone Web Dashboard (Secure, robust, fast)',
+                    'Manual Lead Entry & Contact Management', 
+                    'Visual Deal Pipeline (Drag & Drop: New Lead → Won)',
+                    'Digital Triage Qualification Quizzes (Age/Health/State)', 
+                    '"Nonce-Click" Smart Links (1-Click WA, Calendar, Maps)',
+                    'Automated No-Show Reminders & 30-Day "Ghost-Buster" Nurture'
+                ],
+                eliminated: 'The stress of losing track of leads in spreadsheets, and the mental load of remembering to text appointment reminders.',
+                tracked: 'Total clarity: Full conversation history, deal stages, and conversion rates per agent safely stored in one place.',
+                integration: '100% Native in TaskHub', intType: 'internal',
+                hours: 0, fixedCost: 700, icon: 'fa-users-cog', preSelected: true, required: true 
+            },
+            
+            // LEAD CAPTURE (INBOUND ADS & SOCIAL)
+            { 
+                id: 'ads-fb', cat: 'capture', title: 'Meta Ads Sync (Facebook & Instagram)', 
+                description: 'Smooth, immediate sync the moment a lead form is filled on FB or IG.', 
+                deliverables: ['Get Meta Business Access approved securely', 'Map ad form fields to your TaskHub database', 'Route FB vs IG sources automatically', 'Test thoroughly with live data'],
+                eliminated: 'The frustration of downloading CSV files from Meta and manually typing them into a CRM.',
+                tracked: 'Peace of mind: Immediate pipeline entry (<60s) with precise source tagging.',
+                integration: 'API to TaskHub Pipeline (Ad Spend separate)', intType: 'internal',
+                hours: 40, icon: 'fa-bullhorn' 
+            },
+            { 
+                id: 'ads-google', cat: 'capture', title: 'Google Ads Sync', 
+                description: 'Search traffic leads bypass your crowded email and drop safely into the pipeline.', 
+                deliverables: ['Build custom, secure Google Ads connection', 'Map search intent keywords directly to CRM records'],
+                eliminated: 'Digging through crowded email notifications to find valuable leads who clicked your ads.',
+                tracked: 'Instant visibility: Immediate pipeline entry with exact "Google Ad" keyword source tagging.',
+                integration: 'API to TaskHub Pipeline (Ad Spend separate)', intType: 'internal',
+                hours: 48, icon: 'fa-google' 
+            },
+            { 
+                id: 'speed-tiktok', cat: 'capture', title: 'TikTok & Threads Lead Sync', 
+                description: 'Custom integration for instant, gentle response on newer social platforms.', 
+                deliverables: ['TikTok Lead Generation API sync', 'Threads conversational bridge setup', 'Cross-platform identity matching'],
+                eliminated: 'Losing prospects because a direct message slipped through the cracks.',
+                tracked: 'Full accountability: Logs exact social handle and routes directly into the TaskHub inbox.',
+                integration: 'External Webhook to TaskHub', intType: 'warning',
+                hours: 24, icon: 'fa-tiktok' 
+            },
+
+            // AUTOMATED OUTBOUND (EXTENSIONS)
+            { 
+                id: 'ext-ig', cat: 'outbound', title: 'Instagram Lead Collector + CRM Sync', 
+                description: 'Automatically and safely find, message, and sync outbound IG prospects.', 
+                deliverables: ['Find prospects via hashtags/explore safely', 'Gentle personalized messaging & safety pacing to protect your account', 'Build secure data connection to TaskHub'],
+                eliminated: 'Spending hours manually visiting profiles and sending exhausting identical DMs.',
+                tracked: 'Prevents embarrassment: Automatically logs activity and prevents messaging the same person twice.',
+                integration: 'Chrome Extension -> TaskHub Database', intType: 'internal',
+                hours: 40, icon: 'fa-instagram' 
+            },
+            { 
+                id: 'ext-li', cat: 'outbound', title: 'LinkedIn Lead Collector + CRM Sync', 
+                description: 'Professional connection requests, auto-commenting, and seamless CRM sync.', 
+                deliverables: ['Auto-connection requests & polite Auto-commenting', '3 Levels of personalized relationship building', 'Safe batch processing & Auto-resume features'],
+                eliminated: 'The grind of typing LinkedIn connection requests. Tool resumes exactly where it left off if interrupted.',
+                tracked: 'Professional CRM: Logs Connection Status, Job Title, and Message Sent flawlessly.',
+                integration: 'Chrome Extension -> TaskHub Database', intType: 'internal',
+                hours: 40, icon: 'fa-linkedin' 
+            },
+
+            // TWILIO / INFRASTRUCTURE
+            { 
+                id: 'ai-voice', cat: 'twilio', title: '24/7 AI Voice Receptionist', 
+                description: 'Friendly, human-like AI answers missed calls, qualifies, and logs data for you.', 
+                deliverables: ['Retell AI agent training (Friendly Services, FAQs, Script)', 'Twilio inbound voice routing', 'Extensive edge-case handling for natural conversations'],
+                eliminated: 'The anxiety of missing a commission because you were sleeping, driving, or busy when a prospect called.',
+                tracked: 'Total coverage: Extracts Caller Name, Needs, Best Callback Time and safely pushes full transcript to TaskHub.',
+                integration: 'AI Transcripts -> Pushed into TaskHub (Twilio minutes separate)', intType: 'internal',
+                hours: 48, icon: 'fa-robot' 
+            },
+            { 
+                id: 'sms-consent', cat: 'twilio', title: 'Twilio Compliance Administration', 
+                description: 'Essential compliance paperwork to legally protect your business from carrier filtering.', 
+                deliverables: ['TCR Initial Business Registration Submission', 'Submission of Privacy Policy & Opt-In proofs', '*Note: We will request your approval if carrier appeals require extra hours.'],
+                eliminated: 'The immense risk of getting sued for TCPA violations or having your business number blocked as spam.',
+                tracked: 'Legal Safety: Compliant opt-in status permanently logged and protected for every lead.',
+                integration: 'Bureaucratic Labor to protect your business', intType: 'warning',
+                hours: 4, icon: 'fa-shield-halved' 
+            },
+            { 
+                id: 'bulk-email', cat: 'twilio', title: 'Bulk Email Infrastructure', 
+                description: 'Professional email setup to guarantee delivery and bypass spam folders.', 
+                deliverables: ['DNS Authentication (SPF, DKIM, DMARC)', 'Gentle Dedicated IP Warmup Strategy'],
+                eliminated: 'The frustration of having your carefully crafted agency emails land in the Spam folder.',
+                tracked: 'Marketing clarity: Open rates, click-through rates, and bounce rates safely logged.',
+                integration: 'Managed securely in SendGrid (SendGrid plan separate)', intType: 'external',
+                hours: 14, icon: 'fa-envelope-circle-check' 
+            },
+            { 
+                id: 'auto-dialer', cat: 'twilio', title: 'Automated Dialing System', 
+                description: 'Smooth power dialer integration directly inside TaskHub for your team.', 
+                deliverables: ['Twilio outbound voice API configuration', 'Click-to-call simple dashboard interface'],
+                eliminated: 'The fatigue of manually punching phone numbers into your cell phone and guessing outcomes.',
+                tracked: 'Effortless logging: Automatically tracks call duration, records the audio, and logs the disposition.',
+                integration: '100% Native in TaskHub (Twilio minutes separate)', intType: 'internal',
+                hours: 24, icon: 'fa-phone-volume' 
+            },
+            
+            // MARKETING (ZENITH)
+            { 
+                id: 'zenith-fb', cat: 'marketing', title: 'Zenith: FB Auto-Post (Account Link)', 
+                description: 'Link your page to our pre-built Zenith Facebook posting engine.', 
+                deliverables: ['Facebook Page Graph API permission connection safely', 'Account mapping to Zenith visual calendar'], 
+                eliminated: 'The daily chore of designing an image, downloading it, and manually posting to Facebook.',
+                tracked: 'Marketing peace of mind: Centralized visual calendar showing all upcoming Facebook content.',
+                integration: 'Managed via Zenith Dashboard', intType: 'external',
+                hours: 4, icon: 'fa-facebook-f' 
+            },
+            { 
+                id: 'zenith-ig', cat: 'marketing', title: 'Zenith: Instagram API Integration', 
+                description: 'Add Instagram capabilities to your Zenith posting engine.', 
+                deliverables: ['IG Format Text-to-Image logic setup', 'IG Business Account API linking securely'], 
+                eliminated: 'Transferring generated photos to your phone just to post on Instagram.',
+                tracked: 'Brand consistency: Centralized visual calendar showing all upcoming Instagram content.',
+                integration: 'Managed via Zenith Dashboard', intType: 'external',
+                hours: 16, icon: 'fa-instagram' 
+            },
+            { 
+                id: 'zenith-li', cat: 'marketing', title: 'Zenith: LinkedIn API Integration', 
+                description: 'Add professional LinkedIn capabilities to your Zenith engine.', 
+                deliverables: ['Apply for LinkedIn posting access carefully', 'LinkedIn Profile API sync'], 
+                eliminated: 'The stress of forgetting to maintain a professional, visually appealing presence on LinkedIn.',
+                tracked: 'Professional visibility: Centralized visual calendar showing all upcoming LinkedIn content.',
+                integration: 'Managed via Zenith Dashboard', intType: 'external',
+                hours: 16, icon: 'fa-linkedin' 
+            },
+            { 
+                id: 'zenith-tw', cat: 'marketing', title: 'Zenith: Twitter API Integration', 
+                description: 'Add X/Twitter capabilities to your Zenith posting engine.', 
+                deliverables: ['Apply for Twitter Developer API access', 'Character limits handling logic properly mapped'], 
+                eliminated: 'Missing out on real-time industry conversations because you had no content ready.',
+                tracked: 'Social footprint: Centralized visual calendar showing all upcoming Tweets.',
+                integration: 'Managed via Zenith Dashboard', intType: 'external',
+                hours: 12, icon: 'fa-x-twitter' 
+            }
+        ];
+
+        const goalPresets = {
+            'warm': ['foundation', 'auto-dialer', 'sms-consent'],
+            'ads': ['foundation', 'ads-fb', 'ads-google', 'sms-consent'],
+            'scale': features.map(f => f.id)
+        };
+
+        const selectedFeatures = new Set();
+
+        function init() {
+            applyGoal('warm');
+        }
+
+        function applyGoal(goalId) {
+            selectedFeatures.clear();
+            
+            goalPresets[goalId].forEach(id => {
+                const feature = features.find(f => f.id === id);
+                if (feature) selectedFeatures.add(id);
+            });
+
+            document.querySelectorAll('.goal-btn').forEach(btn => {
+                btn.classList.remove('goal-btn-active');
+            });
+            const activeBtn = document.getElementById(`btn-goal-${goalId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('goal-btn-active');
+            }
+
+            renderUI();
+        }
+
+        function toggleFeature(id) {
+            const feature = features.find(f => f.id === id);
+            if (feature.required) return; 
+            
+            if (selectedFeatures.has(id)) {
+                selectedFeatures.delete(id);
+            } else {
+                selectedFeatures.add(id);
+            }
+
+            document.querySelectorAll('.goal-btn').forEach(btn => {
+                btn.classList.remove('goal-btn-active');
+            });
+
+            renderUI();
+        }
+
+        function renderUI() {
+            renderCategories();
+            updateMap();
+            updateFooter();
+        }
+
+        function getIntegrationBadgeClass(type) {
+            if (type === 'internal') return 'bg-green-100 text-green-800 border-green-200';
+            if (type === 'warning') return 'bg-amber-100 text-amber-800 border-amber-200';
+            return 'bg-purple-100 text-purple-800 border-purple-200';
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = '';
+
+            categories.forEach(cat => {
+                const catFeatures = features.filter(f => f.cat === cat.id);
+                if (catFeatures.length === 0) return;
+
+                const section = document.createElement('div');
+                section.className = 'mb-10';
+                
+                section.innerHTML = `
+                    <div class="mb-4 border-b border-gray-200 pb-2">
+                        <h3 class="text-xl font-bold ${cat.color}">${cat.title}</h3>
+                        <p class="text-sm text-gray-500 mt-1">${cat.desc}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    </div>
+                `;
+
+                const grid = section.querySelector('.grid');
+
+                catFeatures.forEach(feature => {
+                    const isSelected = selectedFeatures.has(feature.id);
+                    const cost = feature.fixedCost !== undefined ? feature.fixedCost : feature.hours * HOURLY_RATE;
+                    
+                    const card = document.createElement('div');
+                    card.className = `border-2 rounded-xl p-5 cursor-pointer transition-all duration-200 relative bg-white flex flex-col h-full ${isSelected ? 'card-selected' : 'border-gray-200 hover:border-blue-300'} ${feature.required ? 'cursor-not-allowed opacity-90' : ''}`;
+                    
+                    if (!feature.required) {
+                        card.onclick = () => toggleFeature(feature.id);
+                    }
+
+                    let iconClass = feature.icon;
+                    if(iconClass.startsWith('fa-') && !iconClass.includes('robot') && !iconClass.includes('laptop') && !iconClass.includes('ghost') && !iconClass.includes('filter') && !iconClass.includes('phone') && !iconClass.includes('sync') && !iconClass.includes('users-cog') && !iconClass.includes('shield') && !iconClass.includes('bolt') && !iconClass.includes('magnet') && !iconClass.includes('bullhorn')) {
+                        iconClass = `fa-brands ${iconClass}`;
+                    } else {
+                        iconClass = `fas ${iconClass}`;
+                    }
+
+                    const badgeClass = getIntegrationBadgeClass(feature.intType);
+                    const lockIcon = feature.intType === 'internal' ? 'fa-link' : (feature.intType === 'warning' ? 'fa-triangle-exclamation' : 'fa-arrow-up-right-from-square');
+
+                    card.innerHTML = `
+                        <div class="absolute top-4 right-4 text-xl">
+                            ${feature.required ? '<i class="fas fa-lock text-success" title="Required Base System"></i>' : `
+                                <i class="far fa-circle text-gray-300 unselected-circle"></i>
+                                <i class="fas fa-check-circle text-accent checkmark"></i>
+                            `}
+                        </div>
+                        
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3 text-accent text-lg border border-blue-100 shadow-sm">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-gray-900 mb-1 leading-tight pr-6">${feature.title}</h4>
+                        <p class="text-gray-500 mb-3 text-sm leading-relaxed">${feature.description}</p>
+                        
+                        <div class="space-y-2 mb-4 flex-grow">
+                            <div class="bg-gray-50 rounded p-2.5 border border-gray-100">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">Deliverables:</p>
+                                <ul class="list-disc pl-4 text-xs text-gray-600 space-y-1">
+                                    ${feature.deliverables.map(d => `<li>${d}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-blue-50 rounded p-2.5 border border-blue-100">
+                                <p class="text-[10px] uppercase tracking-wider text-blue-700 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Manual Work Eliminated:</p>
+                                <p class="text-xs text-blue-800 leading-snug">${feature.eliminated}</p>
+                            </div>
+
+                            <div class="bg-green-50 rounded p-2.5 border border-green-100">
+                                <p class="text-[10px] uppercase tracking-wider text-green-700 font-bold mb-1"><i class="fas fa-chart-line mr-1"></i> Now Tracked / Automated:</p>
+                                <p class="text-xs text-green-800 leading-snug font-medium">${feature.tracked}</p>
+                            </div>
+
+                            <div class="px-2.5 py-1.5 rounded border ${badgeClass} text-[10px] font-bold flex items-center gap-1.5 mt-2">
+                                <i class="fas ${lockIcon}"></i>
+                                <span>SYSTEM: ${feature.integration}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between border-t border-gray-100 pt-3 mt-auto">
+                            <span class="text-xs font-semibold text-gray-500">${feature.fixedCost !== undefined ? '<i class="fas fa-cube mr-1"></i> Base Fee' : `<i class="far fa-clock mr-1"></i> ${feature.hours} hrs`}</span>
+                            <span class="font-black text-gray-900 text-base">$${cost}</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                container.appendChild(section);
+            });
+        }
+
+        function updateMap() {
+            const hasCapture = selectedFeatures.has('ads-fb') || selectedFeatures.has('ads-google') || selectedFeatures.has('ext-ig') || selectedFeatures.has('ext-li') || selectedFeatures.has('speed-tiktok');
+            const hasReception = selectedFeatures.has('ai-voice') || selectedFeatures.has('sms-consent');
+            const hasNurture = selectedFeatures.has('zenith-fb') || selectedFeatures.has('zenith-ig') || selectedFeatures.has('zenith-li') || selectedFeatures.has('zenith-tw');
+
+            const capNode = document.getElementById('map-capture');
+            const capText = document.getElementById('map-capture-text');
+            if (hasCapture) {
+                capNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-active';
+                capText.innerHTML = 'Lead-to-CRM Sync';
+                capText.className = 'text-xs mt-1 font-bold text-accent px-2';
+            } else {
+                capNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-manual';
+                capText.innerHTML = 'Manual Typing Required';
+                capText.className = 'text-xs mt-1 font-bold text-danger px-2';
+            }
+
+            const recNode = document.getElementById('map-reception');
+            const recText = document.getElementById('map-reception-text');
+            if (hasReception) {
+                recNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-active';
+                recText.innerHTML = 'Automated Handlers';
+                recText.className = 'text-xs mt-1 font-bold text-accent px-2';
+            } else {
+                recNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-manual';
+                recText.innerHTML = 'No External Setup';
+                recText.className = 'text-xs mt-1 font-bold text-danger px-2';
+            }
+
+            const nurNode = document.getElementById('map-nurture');
+            const nurText = document.getElementById('map-nurture-text');
+            if (hasNurture) {
+                nurNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-active';
+                nurText.innerHTML = 'Zenith Auto-Posting';
+                nurText.className = 'text-xs mt-1 font-bold text-accent px-2';
+            } else {
+                nurNode.className = 'w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-3 border-2 transition-all duration-300 map-node-manual';
+                nurText.innerHTML = 'Manual Social Posting';
+                nurText.className = 'text-xs mt-1 font-bold text-danger px-2';
+            }
+        }
+
+        function updateFooter() {
+            let totalHours = 0;
+            let subtotal = 0;
+            
+            selectedFeatures.forEach(id => {
+                const feature = features.find(f => f.id === id);
+                if (feature) {
+                    if (feature.fixedCost === undefined) totalHours += feature.hours;
+                    subtotal += feature.fixedCost !== undefined ? feature.fixedCost : (feature.hours * HOURLY_RATE);
+                }
+            });
+
+            let finalCost = subtotal;
+            let discountAmount = 0;
+            const hasDiscount = subtotal >= 4000;
+
+            if (hasDiscount) {
+                discountAmount = subtotal * 0.10;
+                finalCost = subtotal - discountAmount;
+                
+                document.getElementById('subtotal-display').classList.remove('hidden');
+                document.getElementById('subtotal-display').querySelector('span').textContent = subtotal.toLocaleString();
+                document.getElementById('discount-badge').classList.remove('hidden');
+            } else {
+                document.getElementById('subtotal-display').classList.add('hidden');
+                document.getElementById('discount-badge').classList.add('hidden');
+            }
+
+            const addOnDays = Math.ceil(totalHours / 16);
+            const totalCalendarDays = BASE_SETUP_DAYS + addOnDays;
+
+            document.getElementById('total-hours').textContent = totalHours;
+            document.getElementById('calendar-days').textContent = totalCalendarDays;
+            document.getElementById('total-cost').textContent = finalCost.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+
+        function sendToWhatsApp() {
+            let message = "Hi, I have reviewed the Solopreneur Marketing System and selected the following modules:\n\n";
+            let totalHours = 0;
+            let subtotal = 0;
+            
+            categories.forEach(cat => {
+                const selectedInCat = features.filter(f => f.cat === cat.id && selectedFeatures.has(f.id));
+                if (selectedInCat.length > 0) {
+                    message += `*${cat.title}*\n`;
+                    selectedInCat.forEach(f => {
+                        const cost = f.fixedCost !== undefined ? f.fixedCost : f.hours * HOURLY_RATE;
+                        const hoursText = f.fixedCost !== undefined ? "Base System" : `${f.hours} hrs`;
+                        message += `✅ ${f.title} - $${cost} (${hoursText})\n`;
+                        
+                        if (f.fixedCost === undefined) totalHours += f.hours;
+                        subtotal += cost;
+                    });
+                    message += `\n`;
+                }
+            });
+            
+            const addOnDays = Math.ceil(totalHours / 16);
+            const totalCalendarDays = BASE_SETUP_DAYS + addOnDays;
+
+            let finalCost = subtotal;
+            let discountText = "";
+            if (subtotal >= 4000) {
+                const discountAmount = subtotal * 0.10;
+                finalCost = subtotal - discountAmount;
+                discountText = `\n• Subtotal: $${subtotal.toLocaleString()}\n• Volume Discount (10%): -$${discountAmount.toLocaleString()}`;
+            }
+
+            message += `*TIMELINE & ONE-TIME BUILD COST*\n`;
+            message += `• Base System Timeline: ${BASE_SETUP_DAYS} Days\n`;
+            message += `• Add-On Integration Time: ${addOnDays} Days (${totalHours} hrs / 2 Devs)\n`;
+            message += `• TOTAL ESTIMATED DELIVERY: ${totalCalendarDays} Days\n`;
+            if (discountText) message += discountText;
+            message += `\n• One-Time System Build: $${finalCost.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}*\n`;
+            message += `• Included: 6 Months Bug Support (Free)\n`;
+            message += `• Monthly Tech Cost: $0 (Hosted on Free Tiers)\n`;
+            message += `\n*Asset Ownership: You own your external accounts. Meta/Google ad spend and wholesale Twilio/SendGrid usage are billed directly by those platforms with zero markup from us.\n`;
+            message += `\nLet's get started.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const waNumber = "918225998112";
+            const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+            
+            window.open(waUrl, '_blank');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
